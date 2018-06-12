@@ -22,4 +22,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="myDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowEnterAnimation">@anim/anim_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_down</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
 </resources>

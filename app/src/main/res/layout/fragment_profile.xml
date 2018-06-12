@@ -1,0 +1,194 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@android:color/transparent">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_outer_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivProfilePic"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:padding="5dp"
+                        android:src="@drawable/logo_size" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.rawee.app.utils.ui.FontTextView
+                            android:id="@+id/tvUserName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:text="Akshay Kale"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp"
+                            card_view:fontStyle="regular" />
+
+                        <com.rawee.app.utils.ui.FontTextView
+                            android:id="@+id/tvUserEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:text="ark.akshaykale@gmail.com"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15sp"
+                            card_view:fontStyle="light" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:id="@+id/btSettingMenu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_profile_menu_layout_height"
+                android:layout_marginTop="@dimen/user_profile_menu_layout_margin_top"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/user_profile_menu_layout_padding_left">
+
+                <com.rawee.app.utils.ui.ImageViewSquare
+                    android:layout_width="@dimen/user_profile_menu_image_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:tint="@color/red_light"
+                    android:src="@drawable/ico_thumbs_up_96" />
+
+                <com.rawee.app.utils.ui.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Settings"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/menu_test_size"
+                    card_view:fontStyle="regular" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btRate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_profile_menu_layout_height"
+                android:layout_marginTop="@dimen/user_profile_menu_layout_margin_top"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/user_profile_menu_layout_padding_left">
+
+                <com.rawee.app.utils.ui.ImageViewSquare
+                    android:layout_width="@dimen/user_profile_menu_image_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:tint="@color/blue"
+                    android:src="@drawable/ico_thumbs_up_96" />
+
+                <com.rawee.app.utils.ui.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Rate app"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/menu_test_size"
+                    card_view:fontStyle="regular" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btShareApp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_profile_menu_layout_height"
+                android:layout_marginTop="@dimen/user_profile_menu_layout_margin_top"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/user_profile_menu_layout_padding_left">
+
+                <com.rawee.app.utils.ui.ImageViewSquare
+                    android:layout_width="@dimen/user_profile_menu_image_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:tint="@color/purple"
+                    android:src="@drawable/ico_share_96" />
+
+                <com.rawee.app.utils.ui.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Share app"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/menu_test_size"
+                    card_view:fontStyle="regular" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bt_Signout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_profile_menu_layout_height"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="@dimen/user_profile_menu_layout_margin_top"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/user_profile_menu_layout_padding_left">
+
+                <com.rawee.app.utils.ui.ImageViewSquare
+                    android:layout_width="@dimen/user_profile_menu_image_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:tint="@color/orange"
+                    android:src="@drawable/ico_signout_96" />
+
+                <com.rawee.app.utils.ui.FontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="Sign out"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/menu_test_size"
+                    card_view:fontStyle="regular" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>
