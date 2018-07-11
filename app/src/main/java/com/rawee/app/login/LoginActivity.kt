@@ -44,17 +44,51 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult> {
         setContentView(R.layout.activity_login)
         changeStatusBarColour(Color.parseColor("#000000"))
 
+        val fbIconScale = 1.45F
+        val drawable = this.resources.getDrawable(
+                R.drawable.com_facebook_button_icon)
+        drawable.setBounds(0, 0, ((drawable.intrinsicWidth * fbIconScale).toInt()),
+                ((drawable.intrinsicHeight * fbIconScale).toInt()))
+        btFacebookLogin.setCompoundDrawables(drawable, null, null, null)
+        btFacebookLogin.compoundDrawablePadding = resources.getDimensionPixelSize(R.dimen.fb_margin_override_textpadding)
+        btFacebookLogin.setPadding(
+                resources.getDimensionPixelSize(
+                        R.dimen.fb_margin_override_lr),
+                resources.getDimensionPixelSize(
+                        R.dimen.fb_margin_override_top),
+                resources.getDimensionPixelSize(
+                        R.dimen.fb_margin_override_lr),
+                resources.getDimensionPixelSize(
+                        R.dimen.fb_margin_override_bottom));
+
         // Initialize Facebook Login button
         btFacebookLogin.setReadPermissions("email", "public_profile")
-        btFacebookLogin.setPadding(30, 30, 10, 30)
+        //btFacebookLogin.setPadding(32, 32, 10, 30)
         btFacebookLogin.registerCallback(mCallbackManager, this)
 
         //Google
         btGoogleLogin.setColorScheme(SignInButton.COLOR_DARK)
-        btGoogleLogin.setSize(SignInButton.SIZE_WIDE)
+        btGoogleLogin.setSize(SignInButton.SIZE_STANDARD)
 
         btGoogleLogin.setOnClickListener { view -> onGoogleSignInButtonClicked(view) }
         btFacebookLogin.setOnClickListener { view -> onFacebookSignInButtonClicked(view) }
+        btEmailLogin.setOnClickListener { view -> onEmailLoginClicked(view) }
+    }
+
+    private fun onEmailLoginClicked(view: View?) {
+        val email = etEmail.text.toString()
+        if (!EmailAuth.isEmailValid(email)) {
+            //error
+            return
+        }
+        mFirebaseAuth.sendSignInLinkToEmail(email, EmailAuth.getEmailFormat())
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        //Yoo
+                    } else {
+
+                    }
+                }
     }
 
     override fun onStart() {
@@ -174,7 +208,7 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult> {
                         if (task.isSuccessful) {
                             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
                             firebaseAuthWithGoogle(account)
-                        }else{
+                        } else {
                             hideProgressDialog()
                             Toast.makeText(applicationContext, "Google SignIn failed.\nPoor or No Internet connection.", Toast.LENGTH_SHORT).show()
                         }
