@@ -19,4 +19,9 @@
     <dimen name="fb_margin_override_lr">10dp</dimen>
     <!--The next value changes the margin between the FB icon and the login text:-->
     <dimen name="fb_margin_override_textpadding">17dp</dimen>
+
+    <!--book details-->
+    <dimen name="book_details_menu_icon_size">30dp</dimen>
+    <dimen name="book_details_menu_text_size">13sp</dimen>
+    <dimen name="book_details_button_text_size">18sp</dimen>
 </resources>

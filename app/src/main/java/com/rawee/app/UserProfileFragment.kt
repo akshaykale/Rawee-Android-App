@@ -16,10 +16,11 @@ import com.facebook.login.LoginManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.rawee.app.utils.GlideApp
+import com.rawee.app.utils.base.BaseDialogFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
-class UserProfileFragment : DialogFragment() {
+class UserProfileFragment : BaseDialogFragment() {
 
     private val TAG = javaClass.simpleName
 
@@ -45,35 +46,43 @@ class UserProfileFragment : DialogFragment() {
         tvUserName.text = FirebaseAuth.getInstance().currentUser!!.displayName
         tvUserEmail.text = FirebaseAuth.getInstance().currentUser!!.email ?: ""
 
-        try {
-            GlideApp.with(this)
-                    .asBitmap()
-                    .load(FirebaseAuth.getInstance().currentUser!!.photoUrl)
-                    .placeholder(R.drawable.profile_placeholder)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(object : BitmapImageViewTarget(ivProfilePic) {
-                        override fun setResource(resource: Bitmap?) {
-                            val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, resource)
-                            circularBitmapDrawable.isCircular = true
-                            if (ivProfilePic != null) ivProfilePic.setImageDrawable(circularBitmapDrawable)
-                        }
-                    })
-        } catch (ex:Exception){}
+        if (isValid()) {
+            try {
+                GlideApp.with(context!!)
+                        .asBitmap()
+                        .load(FirebaseAuth.getInstance().currentUser!!.photoUrl)
+                        .placeholder(R.drawable.profile_placeholder)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(object : BitmapImageViewTarget(ivProfilePic) {
+                            override fun setResource(resource: Bitmap?) {
+                                if (resource != null) {
+                                    val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, resource)
+                                    circularBitmapDrawable.isCircular = true
+                                    if (ivProfilePic != null) ivProfilePic.setImageDrawable(circularBitmapDrawable)
+                                }
+                            }
+                        })
+            } catch (ex: Exception) { ex.printStackTrace() }
+        }
         btRate.setOnClickListener { onRateButtonClicked(view) }
         btShareApp.setOnClickListener { onShareAppButtonClicked(view) }
-        bt_Signout.setOnClickListener{ onSignOutButtonClick(view)}
+        bt_Signout.setOnClickListener { onSignOutButtonClick(view) }
     }
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(activity!!).setCurrentScreen(activity!!, "user_profile_menu", javaClass.simpleName) /** Analytics*/
+        if (!isValid()) return
+        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(activity!!, "user_profile_menu", javaClass.simpleName)
+        /** Analytics*/
     }
 
     private fun onSignOutButtonClick(view: View) {
+        if (!isValid()) return
+
         val builder = AlertDialog.Builder(context!!)
         builder.setPositiveButton("Sign-out", { dialog, id ->
             LoginManager.getInstance().logOut()
-            RaweeApplication.getsInstance().googleApiHelperInstance.signOut({},{})
+            RaweeApplication.getsInstance().googleApiHelperInstance.signOut({}, {})
             FirebaseAuth.getInstance().signOut()
             //LocalDataStorageManager.getInstance().clear()
             //progressBar.setVisibility(View.GONE)
@@ -87,6 +96,8 @@ class UserProfileFragment : DialogFragment() {
     }
 
     private fun onShareAppButtonClicked(view: View?) {
+        if (!isValid()) return
+
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=" + context!!.packageName)
@@ -95,6 +106,7 @@ class UserProfileFragment : DialogFragment() {
     }
 
     private fun onRateButtonClicked(view: View?) {
+        if (!isValid()) return
         val uri = Uri.parse("market://details?id=" + context!!.packageName)
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -1,5 +1,6 @@
 package com.rawee.app
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,10 +14,11 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.google.firebase.auth.FirebaseAuth
 import com.rawee.app.models.MProduct
 import com.rawee.app.utils.GlideApp
+import com.rawee.app.utils.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
-class HomeFragment : Fragment(), IRecyclerViewClickListner<MProduct> {
+class HomeFragment : BaseFragment(), IRecyclerViewClickListner<MProduct> {
 
     private val posts: TreeMap<Long, MProduct> = TreeMap(Comparator<Long> { o1, o2 -> o2!!.compareTo(o1!!) })
 
@@ -37,6 +39,7 @@ class HomeFragment : Fragment(), IRecyclerViewClickListner<MProduct> {
         posts.put(17, MProduct("http://www.bookcoverideas.com/wp-content/uploads/2012/09/famous-01.jpg"));
 
 
+        if (!isValid()) return
 
         setUpRecyclerView()
 
@@ -46,28 +49,27 @@ class HomeFragment : Fragment(), IRecyclerViewClickListner<MProduct> {
         }
 
         try {
-            if (context != null)
-                GlideApp.with(context!!)
-                        .asBitmap()
-                        .load(FirebaseAuth.getInstance().currentUser!!.photoUrl)
-                        .placeholder(R.drawable.profile_placeholder)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(object : BitmapImageViewTarget(btUserProfile) {
-                            override fun setResource(resource: Bitmap?) {
-                                if (context != null) {
-                                    val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, resource)
-                                    circularBitmapDrawable.isCircular = true
-                                    if (btUserProfile != null) btUserProfile.setImageDrawable(circularBitmapDrawable)
-                                }
+            GlideApp.with(context!!)
+                    .asBitmap()
+                    .load(FirebaseAuth.getInstance().currentUser!!.photoUrl)
+                    .placeholder(R.drawable.profile_placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(object : BitmapImageViewTarget(btUserProfile) {
+                        override fun setResource(resource: Bitmap?) {
+                            if (resource != null) {
+                                val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, resource)
+                                circularBitmapDrawable.isCircular = true
+                                if (btUserProfile != null) btUserProfile.setImageDrawable(circularBitmapDrawable)
                             }
-                        })
+                        }
+                    })
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
     }
 
     private fun setUpRecyclerView() {
-        val gridLayoutManager = GridLayoutManager(context, 2)
+        val gridLayoutManager = GridLayoutManager(context, 3)
         recyclerViewHome.layoutManager = gridLayoutManager
 
         val adapter: HomeFragmentRecyclerViewAdapter = HomeFragmentRecyclerViewAdapter(context!!, posts, this)
@@ -75,6 +77,6 @@ class HomeFragment : Fragment(), IRecyclerViewClickListner<MProduct> {
     }
 
     override fun onRecyclerViewItemClicked(view: View, result: MProduct) {
-
+        startActivity(Intent(activity, BookDetailsActivity::class.java))
     }
 }
