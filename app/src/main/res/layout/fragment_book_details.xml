@@ -22,12 +22,14 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/ivProductDetailsBannerImage"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/book_banner" />
 
                 <com.rawee.app.utils.ui.FontTextView
+                    android:id="@+id/tvProductDetailsTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -35,7 +37,7 @@
                     android:text="Harry Potter: The deathly hallows"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
-                    android:background="#7f000000"
+                    android:background="@drawable/gradient_grey"
                     app:fontStyle="bold" />
 
             </RelativeLayout>
@@ -56,22 +58,25 @@
                     android:src="@drawable/ico_thumbs_up_96" />
 
                 <com.rawee.app.utils.ui.FontTextView
+                    android:id="@+id/tvProductDetailsFavourites"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="210"
+                    android:text=" - "
                     android:textColor="@color/colorWhite" />
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cardProductDetailsInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
                     android:layout_marginStart="15dp"
-                    android:backgroundTint="@android:color/holo_red_light"
+                    app:cardBackgroundColor="@android:color/holo_red_light"
                     app:cardCornerRadius="5dp">
 
                     <com.rawee.app.utils.ui.FontTextView
+                        android:id="@+id/tvProductDetailsInfoText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -91,6 +96,7 @@
                     app:cardCornerRadius="5dp">
 
                     <com.rawee.app.utils.ui.FontTextView
+                        android:id="@+id/tvProductDetailsCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -110,6 +116,7 @@
                 android:layout_marginTop="10dp">
 
                 <com.rawee.app.utils.ui.FontTextView
+                    android:id="@+id/tvProductDetailsDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="10"
@@ -142,6 +149,7 @@
                         app:fontStyle="bold" />
 
                     <com.rawee.app.utils.ui.FontTextView
+                        android:id="@+id/tvProductDetailsAuthors"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="5"

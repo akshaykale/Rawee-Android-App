@@ -41,7 +41,7 @@
             android:theme="@style/NoActionBar" />
 
         <activity
-            android:name=".BookDetailsActivity"
+            android:name=".home.BookDetailsActivity"
             android:label="@string/app_name"
             android:theme="@style/NoActionBar" />
 

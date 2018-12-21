@@ -1,4 +1,4 @@
-package com.rawee.app
+package com.rawee.app.home
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.rawee.app.IRecyclerViewClickListner
+import com.rawee.app.R
 import com.rawee.app.models.MProduct
 import com.rawee.app.utils.GlideApp
-import com.rawee.app.utils.firebase.FireDataManager
 import kotlinx.android.synthetic.main.layout_grid_item_view.view.*
 import java.util.*
 
